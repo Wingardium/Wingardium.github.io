@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/05/04/Object-Detection/C:/Users/new/AppData/Roaming/Typora/typora-user-images/1556884175680.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/04/Object-Detection/C:/Users/new/AppData/Roaming/Typora/typora-user-images/1556906177033.png">
 <meta property="og:image" content="http://yoursite.com/2019/05/04/Object-Detection/C:/Users/new/AppData/Roaming/Typora/typora-user-images/1556906625408.png">
-<meta property="og:updated_time" content="2019-05-04T12:08:34.209Z">
+<meta property="og:updated_time" content="2019-05-06T09:28:09.821Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Object Detection">
 <meta name="twitter:description" content="Object Detection[TOC]  1    Random Decision Forests​    A finite set of randomly generated decision trees forms a forest, called a random decision forest (RDF). 1.1    Entropy and Information Gain1.1.">
@@ -311,36 +311,47 @@
         <h1 id="Object-Detection"><a href="#Object-Detection" class="headerlink" title="Object Detection"></a>Object Detection</h1><p>[TOC]</p>
 <hr>
 <h2 id="1-Random-Decision-Forests"><a href="#1-Random-Decision-Forests" class="headerlink" title="1    Random Decision Forests"></a>1    Random Decision Forests</h2><p>​    A finite set of randomly generated decision trees forms a <em>forest</em>, called a <em>random decision forest</em> (RDF).</p>
-<h3 id="1-1-Entropy-and-Information-Gain"><a href="#1-1-Entropy-and-Information-Gain" class="headerlink" title="1.1    Entropy and Information Gain"></a>1.1    Entropy and Information Gain</h3><h4 id="1-1-1-Entropy"><a href="#1-1-1-Entropy" class="headerlink" title="1.1.1    Entropy"></a>1.1.1    Entropy</h4><p>$S = {x_1,…, x_n}$:    A finite  alphabet</p>
+<h3 id="1-1-Entropy-and-Information-Gain"><a href="#1-1-Entropy-and-Information-Gain" class="headerlink" title="1.1    Entropy and Information Gain"></a>1.1    Entropy and Information Gain</h3><h4 id="1-1-1-Entropy"><a href="#1-1-1-Entropy" class="headerlink" title="1.1.1    Entropy"></a>1.1.1    Entropy</h4><p>$S = \{x_1,…, x_n\}$:    A finite  alphabet</p>
 <p>$X$:    A discrete random variable taking values from $S$ </p>
 <p>$p_i = P(X=x_i),\quad i = 1,…,n$</p>
-<h5 id="Information"><a href="#Information" class="headerlink" title="Information"></a>Information</h5><p>​    The information content of $X$ is<br>$$<br>I(X) = -\log P(X)<br>$$</p>
-<ul>
+<h5 id="Information"><a href="#Information" class="headerlink" title="Information"></a>Information</h5><p>​    The information content of $X$ is </p>
+<script type="math/tex; mode=display">
+I(X) = -\log P(X)</script><ul>
 <li><p>$I(X)$ is also a random variable, where $I(X=a_i) = -\log p_i$</p>
 </li>
 <li><p>(Monotonically decreasing)</p>
 </li>
-<li><p>(Additivity of independent events)<br>$$<br>\begin{align<em>}<br>I_{X, Y}(X=x, Y=y) &amp;= -\log P_{X, Y}(x, y) = -\log P_X(x)P_Y(y)\<br>&amp;= -\log P_X(x) - \log P_Y(y)\<br>&amp;= I_X(X=x) + I_Y(Y=y)<br>\end{align</em>}<br>$$</p>
-</li>
+<li><p>(Additivity of independent events)</p>
+<script type="math/tex; mode=display">
+\begin{align}
+I_{X, Y}(X=x, Y=y) &= -\log P_{X, Y}(x, y) = -\log P_X(x)P_Y(y)\\
+&= -\log P_X(x) - \log P_Y(y)\\
+&= I_X(X=x) + I_Y(Y=y)
+\end{align}</script></li>
 </ul>
-<h5 id="Entropy"><a href="#Entropy" class="headerlink" title="Entropy"></a>Entropy</h5><p>​    The <em>entropy</em> of $X$ is the expected information carried by $X$. That is<br>$$<br>H(X) = E[I(X)] = E[-\log P(X)] = -\sum_{i=1}^n p_i\log p_i<br>$$</p>
-<ul>
+<h5 id="Entropy"><a href="#Entropy" class="headerlink" title="Entropy"></a>Entropy</h5><p>​    The <em>entropy</em> of $X$ is the expected information carried by $X$. That is</p>
+<script type="math/tex; mode=display">
+H(X) = E[I(X)] = E[-\log P(X)] = -\sum_{i=1}^n p_i\log p_i</script><ul>
 <li>If $X\sim Binomial(1, \ 0.5)$, then $H(X) = 1$</li>
 <li>Maximum entropy is given if all $p_i$ is equal</li>
 </ul>
-<h5 id="Conditional-Entropy"><a href="#Conditional-Entropy" class="headerlink" title="Conditional Entropy"></a>Conditional Entropy</h5><p>​    Suppose X is a r.v. over the set $S$, $Y$ is a r.v. over the set $T$, then<br>$$<br>H(Y|X) = -\sum_{x\in S}\sum_{y\in T}P(x, y)\log P(y|x)<br>$$</p>
-<h4 id="1-1-2-Information-Gain-信息增益"><a href="#1-1-2-Information-Gain-信息增益" class="headerlink" title="1.1.2    Information Gain (信息增益)"></a>1.1.2    Information Gain (信息增益)</h4><p>​    The information gain (KL divergence / Relative entropy)<br>$$<br>G(Y|X) = H(Y) - H(Y|X)<br>$$<br>is the number of bits saved on average.</p>
+<h5 id="Conditional-Entropy"><a href="#Conditional-Entropy" class="headerlink" title="Conditional Entropy"></a>Conditional Entropy</h5><p>​    Suppose X is a r.v. over the set $S$, $Y$ is a r.v. over the set $T$, then</p>
+<script type="math/tex; mode=display">
+H(Y|X) = -\sum_{x\in S}\sum_{y\in T}P(x, y)\log P(y|x)</script><h4 id="1-1-2-Information-Gain-信息增益"><a href="#1-1-2-Information-Gain-信息增益" class="headerlink" title="1.1.2    Information Gain (信息增益)"></a>1.1.2    Information Gain (信息增益)</h4><p>​    The information gain (KL divergence / Relative entropy)</p>
+<script type="math/tex; mode=display">
+G(Y|X) = H(Y) - H(Y|X)</script><p>is the number of bits saved on average.</p>
 <h3 id="1-2-Sketch-of-Random-Forest"><a href="#1-2-Sketch-of-Random-Forest" class="headerlink" title="1.2    Sketch of Random Forest"></a>1.2    Sketch of Random Forest</h3><h4 id="1-2-1-Decision-tree-learning"><a href="#1-2-1-Decision-tree-learning" class="headerlink" title="1.2.1    Decision tree learning"></a>1.2.1    Decision tree learning</h4><p><img src="/2019/05/04/Object-Detection/C:/Users\new\AppData\Roaming\Typora\typora-user-images\1556790753505.png" alt="1556790753505"></p>
 <h4 id="1-2-2-Bagging-Bootstrap-aggregating"><a href="#1-2-2-Bagging-Bootstrap-aggregating" class="headerlink" title="1.2.2    Bagging (Bootstrap aggregating)"></a>1.2.2    Bagging (Bootstrap aggregating)</h4><p>​    Given a training set $X = x_1,…,x_n$ with responses $Y = y_1,…,y_n$, bagging repeatedly (<em>B</em> times) selects a <a href="https://en.wikipedia.org/wiki/Sampling_(statistics" target="_blank" rel="noopener">random sample with replacement</a>#Replacement_of_selected_units) of the training set and fits trees to these samples:</p>
 <p>​    For $b = 1,…,B$:</p>
 <ol>
-<li>Sample $n$ training data from $X, Y$, called $X_b, Y_b$.<ol start="2">
+<li>Sample $n$ training data from $X, Y$, called $X_b, Y_b$.<ol>
 <li>Train a classification or regression tree $f_b$ on $X_b, Y_b$.</li>
 </ol>
 </li>
 </ol>
-<p>​    Predict:<br>$$<br>\hat f = \frac{1}{B}\sum_{b=1}^Bf_b(x’)<br>$$</p>
-<h4 id="1-2-3-Random-forest"><a href="#1-2-3-Random-forest" class="headerlink" title="1.2.3    Random forest"></a>1.2.3    Random forest</h4><ul>
+<p>​    Predict:</p>
+<script type="math/tex; mode=display">
+\hat f = \frac{1}{B}\sum_{b=1}^Bf_b(x')</script><h4 id="1-2-3-Random-forest"><a href="#1-2-3-Random-forest" class="headerlink" title="1.2.3    Random forest"></a>1.2.3    Random forest</h4><ul>
 <li><p>Random forest = Decision tree + Bagging</p>
 </li>
 <li><p>There are two bagging factors in random forest training: data &amp; features.</p>
@@ -365,8 +376,14 @@
 </ul>
 <h4 id="Split-function"><a href="#Split-function" class="headerlink" title="Split function"></a>Split function</h4><p><img src="/2019/05/04/Object-Detection/C:/Users\new\AppData\Roaming\Typora\typora-user-images\1556880072965.png" alt="1556880072965"></p>
 <p>​    The applied rule at a <strong>split node</strong> $v$ is also called a split function. </p>
-<p>​    A unary split function $h_\phi$ decides which node (left or right) comes next:<br>$$<br>\begin{align}<br>S_L(\phi) &amp;= {I\in S_v: h_\phi(I) = 0}\<br>S_R(\phi) &amp;= {I\in S_v: h_\phi(I) = 1}<br>\end{align}<br>$$</p>
-<h4 id="Outline-for-growing-a-tree"><a href="#Outline-for-growing-a-tree" class="headerlink" title="Outline for growing a tree"></a>Outline for growing a tree</h4><p>​    During training, a randomly selected subset<br>$$<br>S_i = S_{i,0}\cup \bigcup_{d=1}^kS_{i, d}\subset S<br>$$<br>is employed for growing a tree $T_i$($1\leq i\leq w$).</p>
+<p>​    A unary split function $h_\phi$ decides which node (left or right) comes next:</p>
+<script type="math/tex; mode=display">
+\begin{align}
+S_L(\phi) &= \{I\in S_v: h_\phi(I) = 0\}\\
+S_R(\phi) &= \{I\in S_v: h_\phi(I) = 1\}
+\end{align}</script><h4 id="Outline-for-growing-a-tree"><a href="#Outline-for-growing-a-tree" class="headerlink" title="Outline for growing a tree"></a>Outline for growing a tree</h4><p>​    During training, a randomly selected subset</p>
+<script type="math/tex; mode=display">
+S_i = S_{i,0}\cup \bigcup_{d=1}^kS_{i, d}\subset S</script><p>is employed for growing a tree $T_i$($1\leq i\leq w$).</p>
 <h5 id="Tree-Growing-Procedure"><a href="#Tree-Growing-Procedure" class="headerlink" title="Tree-Growing Procedure"></a>Tree-Growing Procedure</h5><p>​    [Algorithm]</p>
 <ul>
 <li>Start with a single root node, being the only <strong><em>active node</em></strong></li>
@@ -381,11 +398,33 @@
 </li>
 </ul>
 <h5 id="Leaf-Definition-Procedure"><a href="#Leaf-Definition-Procedure" class="headerlink" title="Leaf-Definition Procedure"></a>Leaf-Definition Procedure</h5><p>​    We not only assign one class to one leaf node. Instead, we need to analyze the distribution of classes represented.</p>
-<p>​    At a leaf node $L$, we estimate the classification probability $p(c=0|L)$ and the class probabilities<br>$$<br>p(c\neq 0, d|L) = [1-p(c=0|L)]\cdot p(d|L)<br>$$<br>for $d\in {1,…,p}$.</p>
+<p>​    At a leaf node $L$, we estimate the classification probability $p(c=0|L)$ and the class probabilities</p>
+<script type="math/tex; mode=display">
+p(c\neq 0, d|L) = [1-p(c=0|L)]\cdot p(d|L)</script><p>for $d\in \{1,…,p\}$.</p>
 <h5 id="Compensate-for-Sample-Bias"><a href="#Compensate-for-Sample-Bias" class="headerlink" title="Compensate for Sample Bias"></a>Compensate for Sample Bias</h5><p>​    The classification probabilities $p(c|L)$ and $p(d|L)$ are estimated based on the number of samples from sets $S_{i,0}$ or $S_{i, d}$, $1\leq d\leq p$, which causes a bias.</p>
-<p>​    At the node $L$, the set of all training samples arriving at $L$ is<br>$$<br>S_i^L = S_{i,0}^L\cup\bigcup_{d=1}^pS_{i,d}^L\subset S_iWithout compensation,<br>$$<br>​    Without compensation,<br>$$<br>\begin{align}<br>p(c=0|L) &amp;= \frac{|S_{i,0}^L|}{S_i^L}\<br>p(d|L) &amp;= \frac{|S_{i,d}^L|}{|\bigcup_{d=1}^pS_{i,d}^L|}<br>\end{align}<br>$$<br>​    The estimates assume that ratio<br>$$<br>r_{i,0} = \frac{|S_{i,0}|}{|S_i|}\quad\text{and}\quad r_{i,d} = \frac{|S_{i,d}|}{|S_i|}<br>$$<br>are about the same as the ratio<br>$$<br>r_0 = \frac{|S_0|}{|S|}\quad\text{and}\quad r_d = \frac{|S_d|}{|S|}<br>$$<br>​    To compensate for sample bias:<br>$$<br>\begin{align}<br>p(c=0|L) &amp;= \frac{|S_{i,0}^L|}{S_i^L}\cdot\frac{r_0}{r_{i,0}}\<br>p(d|L) &amp;= \frac{|S_{i,d}^L|}{|\bigcup_{d=1}^pS_{i,d}^L|}\cdot\frac{r_d}{r_{i,d}}<br>\end{align}<br>$$</p>
-<h5 id="Features-and-Split-Functions"><a href="#Features-and-Split-Functions" class="headerlink" title="Features and Split Functions"></a>Features and Split Functions</h5><p>​    The split function should be design for maximizing the <em>information gain</em>.</p>
-<p>​    A simple option of split function:<br>$$<br>h_\phi(I) = \begin{cases}<br>0, \quad\text{if}\ I_{loc}(p) - I_{loc}(q)\geq\tau\<br>1, \quad\text{otherwise}<br>\end{cases}<br>$$<br>where $\phi = {p, q, \tau}$.</p>
+<p>​    At the node $L$, the set of all training samples arriving at $L$ is</p>
+<script type="math/tex; mode=display">
+S_i^L = S_{i,0}^L\cup\bigcup_{d=1}^pS_{i,d}^L\subset S</script><p>​    Without compensation,</p>
+<script type="math/tex; mode=display">
+\begin{align}
+p(c=0|L) &= \frac{|S_{i,0}^L|}{S_i^L}\\
+p(d|L) &= \frac{|S_{i,d}^L|}{|\bigcup_{d=1}^pS_{i,d}^L|}
+\end{align}</script><p>​    The estimates assume that ratio</p>
+<script type="math/tex; mode=display">
+r_{i,0} = \frac{|S_{i,0}|}{|S_i|}\quad\text{and}\quad r_{i,d} = \frac{|S_{i,d}|}{|S_i|}</script><p>are about the same as the ratio</p>
+<script type="math/tex; mode=display">
+r_0 = \frac{|S_0|}{|S|}\quad\text{and}\quad r_d = \frac{|S_d|}{|S|}</script><p>​    To compensate for sample bias:</p>
+<script type="math/tex; mode=display">
+\begin{align}
+p(c=0|L) &= \frac{|S_{i,0}^L|}{S_i^L}\cdot\frac{r_0}{r_{i,0}}\\
+p(d|L) &= \frac{|S_{i,d}^L|}{|\bigcup_{d=1}^pS_{i,d}^L|}\cdot\frac{r_d}{r_{i,d}}
+\end{align}</script><h5 id="Features-and-Split-Functions"><a href="#Features-and-Split-Functions" class="headerlink" title="Features and Split Functions"></a>Features and Split Functions</h5><p>​    The split function should be design for maximizing the <em>information gain</em>.</p>
+<p>​    A simple option of split function:</p>
+<script type="math/tex; mode=display">
+h_\phi(I) = \begin{cases}
+0, \quad\text{if}\ I_{loc}(p) - I_{loc}(q)\geq\tau\\
+1, \quad\text{otherwise}
+\end{cases}</script><p>where $\phi = \{p, q, \tau\}$.</p>
 <h5 id="Learn-a-Split-Node"><a href="#Learn-a-Split-Node" class="headerlink" title="Learn a Split Node"></a>Learn a Split Node</h5><ul>
 <li>Suitable parameters $\phi$ are learned from samples.</li>
 <li>The parameters $\phi$ are selected randomly.</li>
@@ -407,7 +446,9 @@
 <li>$I$ is now a small patch only</li>
 <li>$\textbf{a}$ is the distance vector between the patch and the centroid of the object of class $d$</li>
 </ul>
-<p>​    The optimization function for $\textbf{a}$:<br>$$<br>\min{\sum_{I_l}(a_i^l - \bar a^l)^2 + \sum_{l_r}(a_i^r-\bar a^r)^2}<br>$$<br>​    When splitting a tree node, choose the optimization criterion randomly.</p>
+<p>​    The optimization function for $\textbf{a}$:</p>
+<script type="math/tex; mode=display">
+\min\{\sum_{I_l}(a_i^l - \bar a^l)^2 + \sum_{l_r}(a_i^r-\bar a^r)^2\}</script><p>​    When splitting a tree node, choose the optimization criterion randomly.</p>
 <hr>
 <h2 id="2-Pedestrian-Detection"><a href="#2-Pedestrian-Detection" class="headerlink" title="2    Pedestrian Detection"></a>2    Pedestrian Detection</h2><h3 id="2-1-Outline"><a href="#2-1-Outline" class="headerlink" title="2.1    Outline"></a>2.1    Outline</h3><ul>
 <li>describes a way how to localize object candidates ($i.e.$ rectangular RoIs to be tested in the RDF)</li>
@@ -418,7 +459,12 @@
 <p>​    But if we use Hough Forests (HF) as the classifier,  we can choose random patches in image where pedestrians are likely to appear.</p>
 <h3 id="2-3-Split-Function"><a href="#2-3-Split-Function" class="headerlink" title="2.3    Split Function"></a>2.3    Split Function</h3><p>​    HoG (方向梯度直方图)：</p>
 <p><img src="/2019/05/04/Object-Detection/C:/Users\new\AppData\Roaming\Typora\typora-user-images\1556906177033.png" alt="1556906177033"></p>
-<p>​    Based on the HoG descriptors, a possible choice for split functions is<br>$$<br>h_\phi(I) = \begin{cases}<br>0,\quad\text{if}\ B(a,i)-B(b,j) &gt; \tau\<br>1,\quad\text{otherwise}<br>\end{cases}<br>$$<br>where $B(a,i)$ and $B(b,j)$ are the accumulated magnitude values in block $a$ and $b$, bin $i$ and $j$.</p>
+<p>​    Based on the HoG descriptors, a possible choice for split functions is</p>
+<script type="math/tex; mode=display">
+h_\phi(I) = \begin{cases}
+0,\quad\text{if}\ B(a,i)-B(b,j) > \tau\\
+1,\quad\text{otherwise}
+\end{cases}</script><p>where $B(a,i)$ and $B(b,j)$ are the accumulated magnitude values in block $a$ and $b$, bin $i$ and $j$.</p>
 <h3 id="2-4-Non-maximum-Suppression"><a href="#2-4-Non-maximum-Suppression" class="headerlink" title="2.4    Non-maximum Suppression"></a>2.4    Non-maximum Suppression</h3><p>​    Often, classification detects more than one window around a person. It is meaningful to merge them into one window.</p>
 <p><img src="/2019/05/04/Object-Detection/C:/Users\new\AppData\Roaming\Typora\typora-user-images\1556906625408.png" alt="1556906625408"></p>
 <p>​    Two approtches:</p>
